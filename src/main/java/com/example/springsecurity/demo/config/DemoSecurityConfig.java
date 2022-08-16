@@ -23,11 +23,13 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter{
 		.withUser(users.username("Motin").password("123").roles("EMPLOYEE", "ADMIN"));
 
 	}
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.anyRequest().authenticated() // Any incoming requests must be authenticated
+			.antMatchers("/").hasRole("EMPLOYEE") // All employees will be able to access the home page
+			.antMatchers("/leaders/**").hasRole("MANAGER") // Managers will be able to access leaders directory and its sub-directories
+			.antMatchers("/systems/**").hasRole("ADMIN") // Admins will be able to access systems directory and its sub-directories
 			.and()
 			.formLogin() // We want to use form for the login method
 				.loginPage("/showMyLoginPage")

@@ -16,13 +16,23 @@
 	Welcome to the company home page!
 	
 	<!-- Display user id and role -->
-	<hr/>
+	<hr>
 	
 	User ID: <security:authentication property="principal.username"/>	
 	<br><br>
 	User Role(s): <security:authentication property="principal.authorities"/>	
+
+	<hr>
 	
-	<hr/>
+	<!-- Show link for leaders (Managers will be able to see it) -->
+	<a href="${pageContext.request.contextPath}/leaders">Leadership Meeting</a>
+	(Only for Managers)
+	
+	<!-- Show link for systems (Admins will be able to see it) -->
+	<a href="${pageContext.request.contextPath}/systems">Systems Meeting</a>
+	(Only for Admins)
+	
+	<hr>
 	
 	<!-- Logout form -->
 	<!-- Spring security will automatically handle this logout URL -->
