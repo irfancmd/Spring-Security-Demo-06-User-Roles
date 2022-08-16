@@ -29,13 +29,15 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 			.antMatchers("/").hasRole("EMPLOYEE") // All employees will be able to access the home page
 			.antMatchers("/leaders/**").hasRole("MANAGER") // Managers will be able to access leaders directory and its sub-directories
-			.antMatchers("/systems/**").hasRole("ADMIN") // Admins will be able to access systems directory and its sub-directories
+			.antMatchers("/systems/**").hasRole("ADMIN") // Admins will be able to access leaders directory and its sub-directories
 			.and()
 			.formLogin() // We want to use form for the login method
 				.loginPage("/showMyLoginPage")
 				.loginProcessingUrl("/authenticateTheUser") // Spring will process form data automatically if we use recommended form element names
 				.permitAll() // Anyone will be able to see the login form
 			.and()
-			.logout().permitAll(); // Add support for logout
+			.logout().permitAll() // Add support for logout
+			.and()
+			.exceptionHandling().accessDeniedPage("/access-denied"); // Custom access denied page
 	}
 }
