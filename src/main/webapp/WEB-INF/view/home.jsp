@@ -22,15 +22,17 @@
 	<br><br>
 	User Role(s): <security:authentication property="principal.authorities"/>	
 
-	<hr>
+	<security:authorize access="hasRole('MANAGER')">	
+		<!-- Show link for leaders (Managers will be able to see it) -->
+		<a href="${pageContext.request.contextPath}/leaders">Leadership Meeting</a>
+		(Only for Managers)
+	</security:authorize>
 	
-	<!-- Show link for leaders (Managers will be able to see it) -->
-	<a href="${pageContext.request.contextPath}/leaders">Leadership Meeting</a>
-	(Only for Managers)
-	
-	<!-- Show link for systems (Admins will be able to see it) -->
-	<a href="${pageContext.request.contextPath}/systems">Systems Meeting</a>
-	(Only for Admins)
+	<security:authorize access="hasRole('ADMIN')">	
+		<!-- Show link for systems (Admins will be able to see it) -->
+		<a href="${pageContext.request.contextPath}/systems">Systems  Meeting</a>
+		(Only for Admins)
+	</security:authorize>
 	
 	<hr>
 	
